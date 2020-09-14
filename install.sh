@@ -25,4 +25,8 @@ echo "Setting wallpaper"
 mkdir -p $HOME/Pictures/Wallpapers
 cp $A_PATH/wallpaper.png $HOME/Pictures/Wallpapers
 
+echo "Copying picom config in $HOME/.config/picom/picom.conf"
+mkdir $A_PATH/.config/picom
+cp $A_PATH/picom.conf $HOME/.config/picom/
+
 echo "Please restart i3"
