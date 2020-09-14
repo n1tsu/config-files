@@ -1,4 +1,5 @@
-A_PATH = dirname $0
+A_PATH=$(dirname $0)
+echo "$A_PATH"
 
 echo "Copying i3 config in $HOME/.config/i3"
 cp $A_PATH/i3/config $HOME/.config/i3/
@@ -20,8 +21,8 @@ echo "Copying polybar config in $HOME/.config/polybar"
 mkdir $HOME/.config/polybar
 cp $A_PATH/polybar/config $HOME/.config/polybar/config
 
-echo "Setting wallapaper"
+echo "Setting wallpaper"
 mkdir -p $HOME/Pictures/Wallpapers
-cp $A_PATH/wallapaper.png $HOME/Pictures/Wallpapers
+cp $A_PATH/wallpaper.png $HOME/Pictures/Wallpapers
 
 echo "Please restart i3"
