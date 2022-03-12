@@ -29,3 +29,6 @@ Desktop configuration that I use including light and dark theme.
 - oh-my-zsh
 - git (to clone doom emacs config)
 - Xmodmap (to remap keys)
+
+[[file:white.png]]
+[[file:black.png]]

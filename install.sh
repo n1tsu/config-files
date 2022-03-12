@@ -22,9 +22,9 @@ create_copy_save() {
     if test ${save_choice} = "save"; then
         # Create timestamped dir for old configuration
         mkdir -p "$launch_date"
-        cp -r "$dir/$confdir" "$launch_date/$confdir"
+        cp -r "$dir/$confdir" "$launch_date"
     fi
-    cp -r "$confdir" "$dir/$confdir"
+    cp -r "$confdir" "$dir"
 }
 
 emacs_install() {
@@ -73,6 +73,9 @@ cp .Xmodmap "$HOME/.Xmodmap"
 
 # Modify .zshrc
 sed -i 's/ZSH_THEME=\"[a-zA-Z0-9]+\"/ZSH_THEME=\"lambda\"/g' "$HOME/.zshrc"
+
+# Copy theme script
+cp "theme.sh" "$HOME/.config/theme.sh"
 
 # Create theme file
 echo "black" > "$HOME/.config/.theme"
