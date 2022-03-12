@@ -47,7 +47,7 @@ emacs_install() {
         git clone https://github.com/n1tsu/minimal-emacs.git "$HOME/.emacs"
     elif test ${emacs_choice} = "doomemacs"; then
         git clone https://github.com/n1tsu/doom-config.git "$HOME/.doom.d"
-        $HOME/.emacs/bin/doom upgrade
+        $HOME/.emacs/bin/doom update
     else
         return
     fi
@@ -67,6 +67,12 @@ create_copy_save "$HOME/.config" "i3"
 
 # Copy dunst config
 create_copy_save "$HOME/.config" "dunst"
+
+# Copy Xmodmap file
+cp .Xmodmap "$HOME/.Xmodmap"
+
+# Modify .zshrc
+sed -i -e 's/ZSH_THEME=\"[a-z-0-9]+\"/ZSH_THEME=\"lambda\"/g' "$HOME/.zshrc"
 
 # Create theme file
 echo "black" > "$HOME/.config/.theme"

@@ -24,5 +24,8 @@ Desktop configuration that I use including light and dark theme.
 - dunst (notification)
 - polybar (information bar)
 - alacritty (terminal)
-- doom emacs (text editor)
+- doom emacs (if using *doomemacs*)
+- zshrc (shell)
+- oh-my-zsh
 - git (to clone doom emacs config)
+- Xmodmap (to remap keys)

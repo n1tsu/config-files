@@ -6,7 +6,7 @@ if [ "$#" -ne 1 ]; then
     exit 1
 fi
 
-termite_dir="$HOME/.config/termite"
+alacritty_dir="$HOME/.config/alacritty"
 wallpaper_dir="$HOME/Pictures/Wallpapers"
 theme_file="$HOME/.config/.theme"
 polybar_dir="$HOME/.config/polybar/colorblocks/scripts"
@@ -20,7 +20,7 @@ black_theme() {
     # Change emacs config
     echo "black" > ${theme_file}
     # Change terminal theme
-    ln -fs "${termite_dir}/black_config" "${termite_dir}/config"
+    ln -fs "${alacritty_dir}/black.yml" "${alacritty_dir}/alacritty.yml"
 }
 
 white_theme() {
@@ -32,7 +32,7 @@ white_theme() {
     # Change emacs config
     echo "white" > ${theme_file}
     # Change terminal theme
-    ln -fs "${termite_dir}/white_config" "${termite_dir}/config"
+    ln -fs "${alacritty_dir}/white.yml" "${alacritty_dir}/alacritty.yml"
 }
 
 swap_theme() {
