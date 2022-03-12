@@ -1,32 +1,75 @@
-A_PATH=$(dirname $0)
-echo "$A_PATH"
+#!/bin/sh
 
-echo "Copying i3 config in $HOME/.config/i3"
-cp $A_PATH/i3/config $HOME/.config/i3/
+launch_date="$(date +'%F_%T')"
+usage=$(cat <<EOF
+    Usage:
+       ./install.sh [overwrite|save] [doomemacs|minimalemacs|noemacs]
+EOF
+)
 
-echo "Copying polybar script in $HOME/.config/i3"
-cp $A_PATH/i3/polybar.sh $HOME/.config/i3/
+if [ "$#" -ne 2 ]; then
+    echo "$usage"
+    exit 1
+fi
 
-echo "Copying zshrc in $HOME"
-cp $A_PATH/.zshrc $HOME
+save_choice="$1"
+emacs_choice="$2"
 
-echo "Copying Xmodmap in $HOME"
-cp $A_PATH/.Xmodmap $HOME
+create_copy_save() {
+    dir="$1"
+    confdir="$2"
+    mkdir -p "$dir"
+    if test ${save_choice} = "save"; then
+        # Create timestamped dir for old configuration
+        mkdir -p "$launch_date"
+        cp "$dir/$confdir" "$launch_date/$confdir"
+    fi
+    cp -r "$confdir" "$dir/$confdir"
+}
 
-echo "Copying termite config in $HOME/.config/termite"
-mkdir $HOME/.config/termite
-cp $A_PATH/termite/config $HOME/.config/termite/config
+emacs_install() {
+    if test ${save_choice} = "save"; then
+        mkdir -p "$launch_date"
+        if test ${emacs_choice} = "minimalemacs"; then
+            mv "$HOME/.emacs" "$launch_date/.emacs"
+        elif test ${emacs_choice} = "doomemacs"; then
+            mv "$HOME/.doom.d" "$launch_date/.doom.d"
+        fi
+    else
+        if test ${emacs_choice} = "minimalemacs"; then
+            rm -rf "$HOME/.emacs"
+        elif test ${emacs_choice} = "doomemacs"; then
+            rm -rf "$HOME/.doom.d"
+        fi
+    fi
 
-echo "Copying polybar config in $HOME/.config/polybar"
-mkdir $HOME/.config/polybar
-cp $A_PATH/polybar/config $HOME/.config/polybar/config
+    if test ${emacs_choice} = "minimalemacs"; then
+        git clone https://github.com/n1tsu/minimal-emacs.git "$HOME/.emacs"
+    elif test ${emacs_choice} = "doomemacs"; then
+        git clone https://github.com/n1tsu/doom-config.git "$HOME/.doom.d"
+        $HOME/.emacs/bin/doom upgrade
+    else
+        return
+    fi
+}
 
-echo "Setting wallpaper"
-mkdir -p $HOME/Pictures/Wallpapers
-cp $A_PATH/wallpaper.png $HOME/Pictures/Wallpapers
+# Copy wallpapers
+create_copy_save "$HOME/Pictures/" "Wallpapers"
 
-echo "Copying picom config in $HOME/.config/picom/picom.conf"
-mkdir $HOME/.config/picom
-cp $A_PATH/picom.conf $HOME/.config/picom/
+# Copy polybar config
+create_copy_save "$HOME/.config" "polybar"
 
-echo "Please restart i3"
+# Copy alacritty config
+create_copy_save "$HOME/.config" "alacritty"
+
+# Copy i3 config
+create_copy_save "$HOME/.config" "i3"
+
+# Copy dunst config
+create_copy_save "$HOME/.config" "dunst"
+
+# Create theme file
+echo "black" > "$HOME/.config/.theme"
+
+# copy doom emacs config
+emacs_install

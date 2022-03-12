@@ -47,7 +47,10 @@ bindsym $mod+Return exec termite
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run -fn 'Droid Sans Mono-18'
+#bindsym $mod+d exec dmenu_run -fn 'Droid Sans Mono-18'
+bindsym $mod+d exec rofi -show run
+bindsym $mod+b exec rofi-rbw
+
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -155,10 +158,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym h resize shrink width 10 px or 10 ppt
         bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym j resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -182,17 +185,33 @@ bindsym $mod+r mode "resize"
 
 # Bind network manager dmenu
 bindsym $mod+n exec networkmanager_dmenu
+
 # Rebind CAPS to ESC
+# -variant intl
 exec setxkbmap us -option caps:escape,compose:rcrtl
+
 # Exec night luminosity program
 exec redshift -l 48.85341:2.3488
-# Start polybar
-exec_always --no-startup-id ~/.config/i3/polybar.sh &
+
 # Set wallpaper
+exec bash ~/.config/polybar/material/scripts/pywal.sh ~/Pictures/Wallpapers/wallpaper.png
 exec --no-startup-id feh --bg-fill ~/Pictures/Wallpapers/wallpaper.png
 
+# Start polybar
+#exec_always --no-startup-id ~/.config/i3/polybar.sh &
+exec bash ~/.config/polybar/launch.sh --colorblocks
+
+# Bind emacs everywhere
+bindsym $mod+y exec emacsclient --eval "(setenv \"DISPLAY\" \"$DISPLAY\")" --eval '(emacs-everywhere)'
+
 # class                 border  backgr. text    indicator child_border
-client.focused          #629ea3 #629ea3 #ffffff #2e9ef4   #629ea3
+#client.focused          #629ea3 #629ea3 #ffffff #2e9ef4   #629ea3
+#client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
+#client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+#client.urgent           #2f343a #900000 #ffffff #900000   #900000
+#client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+client.focused          #FFE9FD #FFE9FD #ffffff #2e9ef4   #FFE9FD
 client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
 client.unfocused        #333333 #222222 #888888 #292d2e   #222222
 client.urgent           #2f343a #900000 #ffffff #900000   #900000
@@ -204,5 +223,17 @@ exec picom
 # Binding to i3lock
 bindsym $mod+Shift+x exec i3lock -c 000000
 
+# Binding to flameshot
+bindsym Print exec "flameshot gui"
+
+bindsym $mod+Shift+p exec "sudo modprobe -r psmouse"
+
 # Exec morse script
-exec python ~/Desktop/WORKDIR/caps-morse/caps-morse.py &
+exec python ~/Desktop/WORKDIR/caps-morse/caps-morse.py "AYAB" &
+
+# Exec dunst for notification
+exec /usr/bin/dunst
+
+# Exec conky for swag
+# Actually this is not swag
+# exec conky
