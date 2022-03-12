@@ -9,14 +9,14 @@ Desktop configuration that I use including light and dark theme.
 #+end_src
 
 - [overwrite|save]
-  + overwrite :: don't save actual configuration folders
-  + save :: create '%F_%T' folder to save actual configuration
+  + *overwrite* : don't save actual configuration folders
+  + *save* : create '%F_%T' folder to save actual configuration
 - [doomemacs|minimalemacs|noemacs]
-  + doomemacs :: install [[https://github.com/n1tsu/doom-config][my doom emacs configuration]]
-  + minimalemacs :: install [[https://github.com/n1tsu/minimal-emacs][my minimal doom-like configuration]]
-  + noemacs :: don't install configuration for emacs
+  + *doomemacs* : install [[https://github.com/n1tsu/doom-config][my doom emacs configuration]]
+  + *minimalemacs* : install [[https://github.com/n1tsu/minimal-emacs][my minimal doom-like configuration]]
+  + *noemacs* : don't install configuration for emacs
 - To change themes
-  + "*black"* or "*white"* in *$HOME/.config/.theme* file
+  + *black* or *white* in *$HOME/.config/.theme* file
   + Use the brush button on polybar
 
 * Dependencies
