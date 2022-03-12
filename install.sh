@@ -22,7 +22,7 @@ create_copy_save() {
     if test ${save_choice} = "save"; then
         # Create timestamped dir for old configuration
         mkdir -p "$launch_date"
-        cp "$dir/$confdir" "$launch_date/$confdir"
+        cp -r "$dir/$confdir" "$launch_date/$confdir"
     fi
     cp -r "$confdir" "$dir/$confdir"
 }
@@ -72,7 +72,7 @@ create_copy_save "$HOME/.config" "dunst"
 cp .Xmodmap "$HOME/.Xmodmap"
 
 # Modify .zshrc
-sed -i -e 's/ZSH_THEME=\"[a-z-0-9]+\"/ZSH_THEME=\"lambda\"/g' "$HOME/.zshrc"
+sed -i 's/ZSH_THEME=\"[a-zA-Z0-9]+\"/ZSH_THEME=\"lambda\"/g' "$HOME/.zshrc"
 
 # Create theme file
 echo "black" > "$HOME/.config/.theme"
